@@ -1,0 +1,15 @@
+micronaut:
+  application:
+    name: gateway
+  metrics:
+    enabled: false
+    export:
+      prometheus:
+        enabled: true
+        descriptions: true
+        step: PT1M
+consul:
+  client:
+    registration:
+      enabled: true
+    defaultZone: ${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
