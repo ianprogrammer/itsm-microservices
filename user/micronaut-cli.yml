@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.itsm
+testFramework: junit
+sourceLanguage: kotlin
+buildTool: gradle
+features: [annotation-api, app-name, consul, data, data-jpa, discovery-consul, gradle, h2, hibernate-jpa, hibernate-validator, http-client, jdbc-hikari, junit, kotlin, kotlin-application, logback, management, micrometer, micrometer-prometheus, netty-server, readme, shade, yaml]
