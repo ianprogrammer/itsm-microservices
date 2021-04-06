@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.itsm
+testFramework: junit
+sourceLanguage: kotlin
+buildTool: gradle
+features: [annotation-api, app-name, consul, discovery-consul, gradle, http-client, junit, kotlin, kotlin-application, logback, netty-server, rabbitmq, readme, shade, tracing-zipkin, yaml]

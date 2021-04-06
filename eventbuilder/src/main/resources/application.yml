@@ -1,0 +1,16 @@
+micronaut:
+  application:
+    name: eventbuilder
+consul:
+  client:
+    defaultZone: ${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
+    registration:
+      enabled: true
+rabbitmq.uri: amqp://localhost:5672
+tracing:
+  zipkin:
+    enabled: true
+    http:
+      url: http://localhost:9411
+    sampler:
+      probability: 0.1
