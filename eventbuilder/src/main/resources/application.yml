@@ -1,16 +1,28 @@
 micronaut:
   application:
     name: eventbuilder
+  server:
+    port: ${API_PORT:8084}
 consul:
   client:
     defaultZone: ${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
     registration:
       enabled: true
-rabbitmq.uri: amqp://localhost:5672
+      check:
+        http: true
+
+rabbitmq:
+  uri: amqp://localhost:5672
+  username: rabbituser
+  password: P@ssw0rd
 tracing:
   zipkin:
     enabled: true
     http:
       url: http://localhost:9411
     sampler:
-      probability: 0.1
+      probability: 1
+
+eventbuilder:
+  exchange: ${EVENT_EXCHANGE:eventbuilder.processor}
+  queue: ${EVENT_QUEUE:eventbuilder.processor.queue}

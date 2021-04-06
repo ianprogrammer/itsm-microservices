@@ -1,6 +1,18 @@
 version: "3"
 
 services:
+
+    rabbitmq:
+        image: rabbitmq:3-management-alpine
+        container_name: rabbitmq
+        ports:
+          - "5672:5672"
+          - "15672:15672"
+        volumes:
+          - rabbitmq-volume:/var/lib/rabbitmq
+        environment:
+          RABBITMQ_DEFAULT_USER: rabbituser
+          RABBITMQ_DEFAULT_PASS: P@ssw0rd
     user-db:
         image: postgres:13.2-alpine
         healthcheck:
@@ -134,6 +146,7 @@ networks:
     driver: bridge
 
 volumes: 
+  rabbitmq-volume:
   user-volume:
   item-volume:
   category-volume:
