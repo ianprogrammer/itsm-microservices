@@ -1,0 +1,146 @@
+version: "3"
+
+services:
+    user-db:
+        image: postgres:13.2-alpine
+        healthcheck:
+            test: psql postgres --command "select 1" -U postgres
+        ports:
+            - "5432:5432"
+        networks:
+            - postgres
+        volumes:
+            - user-volume:/var/lib/postgresql/userdatabase/data
+        environment:
+            POSTGRES_DB: user
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: P@ssw0rd
+
+    item-db:
+        image: postgres:13.2-alpine
+        healthcheck:
+            test: psql postgres --command "select 1" -U postgres
+        ports:
+            - "5433:5433"
+        volumes:
+            - item-volume:/var/lib/postgresql/itemdatabase/data
+        command: -p 5433
+        networks:
+            - postgres
+        environment:
+            POSTGRES_DB: item
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: P@ssw0rd
+
+    category-db:
+        image: postgres:13.2-alpine
+        healthcheck:
+            test: psql postgres --command "select 1" -U postgres
+        ports:
+            - "5434:5434"
+        volumes:
+            - category-volume:/var/lib/postgresql/categorydatabase/data
+        command: -p 5434
+        networks:
+            - postgres
+        environment:
+            POSTGRES_DB: category
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: P@ssw0rd
+            
+    event-db:
+        image: postgres:13.2-alpine
+        healthcheck:
+            test: psql postgres --command "select 1" -U postgres
+        ports:
+            - "5435:5435"
+        volumes:
+            - event-volume:/var/lib/postgresql/eventdatabase/data
+        command: -p 5435
+        networks:
+            - postgres
+        environment:
+            POSTGRES_DB: event
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: P@ssw0rd
+
+    ticket-db:
+        image: postgres:13.2-alpine
+        healthcheck:
+            test: psql postgres --command "select 1" -U postgres
+        ports:
+            - "5436:5436"
+        volumes:
+            - ticket-volume:/var/lib/postgresql/ticketdatabase/data
+        command: -p 5436
+        networks:
+            - postgres
+        environment:
+            POSTGRES_DB: ticket
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: P@ssw0rd
+
+    pgadmin:
+        container_name: pgadmin_container
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: admin@admin.com
+            PGADMIN_DEFAULT_PASSWORD: admin
+            PGADMIN_CONFIG_SERVER_MODE: 'False'
+        volumes:
+            - pgadmin:/root/.pgadmin
+        ports:
+            - "8080:80"
+        networks:
+            - postgres
+        restart: unless-stopped
+
+    consul:
+        image: docker.io/bitnami/consul:1-debian-10
+        volumes:
+            - consul_data:/bitnami/consul
+        ports:
+            - '8300:8300'
+            - '8301:8301'
+            - '8301:8301/udp'
+            - '8500:8500'
+            - '8600:8600'
+            - '8600:8600/udp'
+        networks:
+            - postgres
+
+    storage:
+        image: openzipkin/zipkin-mysql
+        container_name: mysql
+        networks:
+            - postgres
+        
+    zipkin:
+        image: openzipkin/zipkin
+        ports:
+            - '9411:9411'
+        environment:
+            - STORAGE_TYPE=mysql
+            # Point the zipkin at the storage backend
+            - MYSQL_HOST=mysql
+        networks:
+            - postgres
+        depends_on:
+            - storage
+        
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes: 
+  user-volume:
+  item-volume:
+  category-volume:
+  event-volume:
+  ticket-volume:
+  pgadmin:
+  consul_data:
+
+
+    CX_GOOD_USERS_WRONG_ITEM_AUTOMATION_ENABLED

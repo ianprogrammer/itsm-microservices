@@ -1,0 +1,31 @@
+micronaut:
+  application:
+    name: category
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+        descriptions: true
+        step: PT1M
+    enabled: true
+datasources:
+  default:
+    url: jdbc:postgresql://localhost:5432/postgres
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: ''
+    schema-generate: CREATE_DROP
+    dialect: POSTGRES
+tracing:
+  zipkin:
+    enabled: true
+    http:
+      url: http://localhost:9411
+    sampler:
+      probability: 0.1
+jpa.default.properties.hibernate.hbm2ddl.auto: update
+consul:
+  client:
+    registration:
+      enabled: true
+    defaultZone: ${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
