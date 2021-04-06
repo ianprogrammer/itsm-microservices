@@ -13,7 +13,7 @@ import javax.inject.Inject
 import javax.validation.Valid
 
 @ExecuteOn(TaskExecutors.IO)
-@Controller("/item ")
+@Controller("/item")
 @Validated
 class ItemController (
     @Inject

@@ -1,6 +1,8 @@
 micronaut:
   application:
     name: category
+  server:
+    port: ${API_PORT:8083}
   metrics:
     export:
       prometheus:
@@ -29,3 +31,11 @@ consul:
       check:
         http: true
     defaultZone: ${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
+
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        show_sql: true

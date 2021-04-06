@@ -17,32 +17,32 @@ import javax.validation.Valid
 @Validated
 class CategoryController (
     @Inject
-    private val itemRepository: CategoryRepository) {
+    private val categoryRepository: CategoryRepository) {
 
     @Get("/{id}")
     fun show(id: UUID): HttpResponse<Category> {
         return HttpResponse.ok(
-            itemRepository
+            categoryRepository
                 .findById(id).orElse(null)
         )
     }
 
     @Put("/{id}")
     fun update(@Body @Valid data: CategoryDTO, id: UUID): HttpResponse<*> {
-        val numberOfEntitiesUpdated: Int = itemRepository.update(id, data)
+        val numberOfEntitiesUpdated: Int = categoryRepository.update(id, data)
         return HttpResponse
             .noContent<Any>()
     }
 
     @Post
     fun save(@Body @Valid data: CategoryDTO): HttpResponse<Category> {
-        val item = itemRepository.save(data)
+        val item = categoryRepository.save(data)
         return HttpResponse.created(item)
     }
 
     @Delete("/{id}")
     fun delete(id: UUID): HttpResponse<*>? {
-        itemRepository.deleteById(id)
+        categoryRepository.deleteById(id)
         return HttpResponse.noContent<Any>()
     }
 }

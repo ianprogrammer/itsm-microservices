@@ -28,7 +28,6 @@ dependencies {
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-management")
     implementation("io.micronaut:micronaut-runtime")
-    implementation("io.micronaut:micronaut-tracing")
     implementation("io.micronaut.beanvalidation:micronaut-hibernate-validator")
     implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
     implementation("io.micronaut.discovery:micronaut-discovery-client")
@@ -37,23 +36,15 @@ dependencies {
     implementation("io.micronaut.micrometer:micronaut-micrometer-registry-prometheus")
     implementation("io.micronaut.sql:micronaut-hibernate-jpa")
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
-    implementation("io.opentracing.brave:brave-opentracing")
     implementation("javax.annotation:javax.annotation-api")
-    implementation("org.apache.logging.log4j:log4j-core:2.13.2")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
-    runtimeOnly("io.zipkin.brave:brave-instrumentation-http")
-    runtimeOnly("io.zipkin.reporter2:zipkin-reporter")
-    runtimeOnly("org.apache.logging.log4j:log4j-api:2.13.2")
-    runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.13.2")
-    testImplementation("org.testcontainers:junit-jupiter")
-    testImplementation("org.testcontainers:postgresql")
-    testImplementation("org.testcontainers:testcontainers")
     implementation("io.micronaut:micronaut-validation")
+    runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+    runtimeOnly("com.h2database:h2")
     runtimeOnly("org.postgresql:postgresql")
 }
-
 
 application {
     mainClass.set("com.itsm.ApplicationKt")

@@ -141,6 +141,3 @@ volumes:
   ticket-volume:
   pgadmin:
   consul_data:
-
-
-    CX_GOOD_USERS_WRONG_ITEM_AUTOMATION_ENABLED
