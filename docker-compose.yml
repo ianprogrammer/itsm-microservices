@@ -120,21 +120,23 @@ services:
             - '8600:8600/udp'
         networks:
             - postgres
-
     storage:
-        image: openzipkin/zipkin-mysql
-        container_name: mysql
-        networks:
-            - postgres
-        
+        image: openzipkin/zipkin-cassandra
+        container_name: cassandra
+       # Uncomment to expose the storage port for testing
+        ports:
+          - 9042:9042
     zipkin:
         image: openzipkin/zipkin
         ports:
             - '9411:9411'
         environment:
-            - STORAGE_TYPE=mysql
-            # Point the zipkin at the storage backend
-            - MYSQL_HOST=mysql
+            - STORAGE_TYPE=cassandra3
+            # When using the test docker image, or have schema pre-installed, you don't need to re-install it
+            - CASSANDRA_ENSURE_SCHEMA=false
+            # When overriding this value, note the minimum supported version is 3.9
+            # If you you cannot run 3.9+, but can run 2.2+, set STORAGE_TYPE=cassandra
+            - CASSANDRA_CONTACT_POINTS=cassandra
         networks:
             - postgres
         depends_on:
