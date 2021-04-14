@@ -1,4 +1,4 @@
-## This is a study case of a simple ticket application using microservices
+## This is a study case of a simple ticket application using microservices architecture
 
 ### Stack
 * Micronaut
